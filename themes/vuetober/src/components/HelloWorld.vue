@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     posli() {
-      Axios.post('http://test.test/api/auth/register', {
+      Axios.post('https://test.test/api/auth/register', {
         name: this.user.name,
         surname: this.user.surname,
         email: this.user.email,
