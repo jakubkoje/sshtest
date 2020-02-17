@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     posli() {
-      Axios.post('https://localhost/api/auth/register', {
+      Axios.post('https://teachplusplus.hybridlab.dev/api/auth/register', {
         name: this.user.name,
         surname: this.user.surname,
         email: this.user.email,
