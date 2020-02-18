@@ -1,7 +1,8 @@
 <template>
   <b-container>
-    <b-form @submit.prevent="posli()">
-      <b-form-group label="Name:" label-for="input-1">
+    <ValidationObserver v-slot="{ passes }">
+      <b-form @submit.prevent="passes(posli)">
+        <!-- <b-form-group label="Name:" label-for="input-1">
         <b-form-input
           id="input-1"
           type="text"
@@ -10,62 +11,74 @@
           placeholder="Enter name"
         >
         </b-form-input>
-      </b-form-group>
+      </b-form-group> -->
 
-      <b-form-group label="Surname:" label-for="input-2">
-        <b-form-input
-          id="input-2"
+        <BTextInputWithValidation
+          rules="required|min:3|alpha"
           type="text"
-          required
+          label="Name"
+          name="Name"
+          v-model="user.name"
+          placeholder="Enter name"
+        />
+
+        <BTextInputWithValidation
+          rules="required|min:3|alpha"
+          type="text"
+          label="Surname"
+          name="Surname"
           v-model="user.surname"
           placeholder="Enter surname"
-        >
-        </b-form-input>
-      </b-form-group>
+        />
 
-      <b-form-group label="Email adress:" label-for="input-3">
-        <b-form-input
-          id="input-3"
+        <BTextInputWithValidation
+          rules="required|email"
           type="text"
-          required
+          label="Email"
+          name="Email"
           v-model="user.email"
           placeholder="Enter email"
-        >
-        </b-form-input>
-      </b-form-group>
-      <b-form-group label="Password:" label-for="input-4">
-        <b-form-input
-          id="input-4"
+        />
+
+        <BTextInputWithValidation
+          rules="required|min:4"
           type="password"
-          required
+          label="Password"
+          name="Password"
           v-model="user.password"
           placeholder="Enter password"
-        >
-        </b-form-input>
-      </b-form-group>
-      <b-form-group label="Password again:" label-for="input-5">
-        <b-form-input
-          id="input-5"
-          type="password"
-          required
-          v-model="user.password_confirmation"
-          placeholder="Enter password again"
-        >
-        </b-form-input>
-      </b-form-group>
+          vid="user.password"
+        />
 
-      <b-button type="submit" variant="primary">
-        Submit
-      </b-button>
-    </b-form>
+        <BTextInputWithValidation
+          rules="required|min:4|confirmed:user.password"
+          type="password"
+          label="Password confirmation"
+          name="Password confirmation"
+          v-model="user.password_confirmation"
+          placeholder="Confirm password"
+        />
+
+        <b-button type="submit" variant="primary">
+          Submit
+        </b-button>
+      </b-form>
+    </ValidationObserver>
   </b-container>
 </template>
 
 <script>
 import Axios from 'axios';
 
+import { ValidationObserver } from 'vee-validate';
+import BTextInputWithValidation from './BTextInputWithValidation.vue';
+
 export default {
   name: 'HelloWorld',
+  components: {
+    BTextInputWithValidation,
+    ValidationObserver,
+  },
   data() {
     return {
       user: {
