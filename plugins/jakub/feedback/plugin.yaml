@@ -1,0 +1,6 @@
+plugin:
+    name: 'jakub.feedback::lang.plugin.name'
+    description: 'jakub.feedback::lang.plugin.description'
+    author: Jakub
+    icon: oc-icon-angellist
+    homepage: ''
